@@ -1,16 +1,21 @@
-const UNSUBSCRIBE_LINK = `//a[contains(@href, 'unsubscribe')]`;
+import {Frame} from "./framework/elements/frame.js";
+import {Link} from "./framework/elements/link.js";
+import {Navigation} from "./framework/browser/navigation";
 
 class PreviewWindow {
-    constructor(page, previewId) {
-        this.page = page;
-        this.frame = page.frameLocator(`${previewId} iframe`);
+    #frame
+    static #LINK_LOCATOR = `//a[contains(@href, 'unsubscribe')]`;
+
+    constructor(previewId) {
+        this.#frame = new Frame(`${previewId} iframe`);
     }
 
     async goToUnsubscribe() {
-        const link = await this.frame.locator(UNSUBSCRIBE_LINK);
-        await link.waitFor({state: "visible"})
-        await link.scrollIntoViewIfNeeded();
-        await this.page.goto(await link.getAttribute('href'));
+        const link = await this.#frame.getElementFromFrame(PreviewWindow.#LINK_LOCATOR, Link);
+        await link.waitToBeVisible();
+        await link.scrollToElement();
+        const url = await link.getHref();
+        await Navigation.goToPage(url);
     }
 }
 

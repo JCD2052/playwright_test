@@ -1,15 +1,32 @@
+import {PageHolder} from "./framework/browser/page-holder";
+
 class BasePage {
-    constructor(page, pageMarker) {
-        this.page = page;
-        this.pageMarker = pageMarker;
+    #locator
+
+    /**
+     *
+     * @param locator{string}
+     */
+    constructor(locator) {
+        this.#locator = locator;
     }
+
+    /**
+     *
+     * @returns {Promise<void>}
+     */
 
     async waitForLoading() {
-        await this.page.waitForLoadState();
+        await PageHolder.page.waitForLoadState();
     }
 
+    /**
+     *
+     * @returns {Promise<boolean>}
+     */
+
     async isPageOpened() {
-        return await this.page.locator(this.pageMarker).isVisible();
+        return PageHolder.page.locator(this.#locator).isVisible();
     }
 }
 

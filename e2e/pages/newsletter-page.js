@@ -1,31 +1,39 @@
-const {SignUpForm} = require('./sign-up-form');
+import {Button} from "./framework/elements/button.js";
+import {Link} from "./framework/elements/link.js";
+import {SignUpForm} from "./sign-up-form";
+
 const {BasePage} = require("./base-page");
 
-const SELECT_BUTTON_LOCATOR = `//input[@name='newsletters[]']`;
-const NEWSLETTERS_FORM_LOCATOR = `//form[@id ='newsletters-form']`
+
 class NewsLetterPage extends BasePage {
-    constructor(page) {
-        super(page, NEWSLETTERS_FORM_LOCATOR);
-        this.newsTopics = page.locator(`//div[@class = 'p-8']`)
-        this.signUpForm = new SignUpForm(page);
+    static #SELECT_BUTTON_LOCATOR = `//input[@name='newsletters[]']`;
+    static #NEWSLETTERS_FORM_LOCATOR = `//form[@id ='newsletters-form']`
+    static #TOPIC_LOCATOR = topicId => `(//label[@for=${topicId}])[1]`;
+    static #TOPIC_LINK_LOCATOR = "//a";
+    #newsTopics = new Link(`//div[@class = 'p-8']`);
+    signUpForm = new SignUpForm();
+
+    constructor() {
+        super(NewsLetterPage.#NEWSLETTERS_FORM_LOCATOR);
     }
 
     async findRandomTopic() {
-        const topics = await this.newsTopics.all();
+        const topics = await this.#newsTopics.findElements();
         return topics[Math.floor(Math.random() * topics.length)];
     }
 
     async selectTopic(topicElement) {
-        const selectButton = topicElement.locator(SELECT_BUTTON_LOCATOR);
-        await selectButton.scrollIntoViewIfNeeded();
-        const topicId = await selectButton.getAttribute('id');
-        await this.page.locator(`//label[@for=${topicId}]`).first().click();
+        const selectButton = topicElement.findNext(NewsLetterPage.#SELECT_BUTTON_LOCATOR);
+        await selectButton.scrollToElement();
+        const topicId = await selectButton.getElementId();
+        const element = new Button(NewsLetterPage.#TOPIC_LOCATOR(topicId));
+        await element.click();
     }
 
     async getPreviewElement(topicElement) {
-        await topicElement.scrollIntoViewIfNeeded();
-        return topicElement.locator("//a");
+        await topicElement.scrollToElement();
+        return topicElement.findNext(NewsLetterPage.#TOPIC_LINK_LOCATOR);
     }
 }
 
-export {NewsLetterPage}
+export {NewsLetterPage};

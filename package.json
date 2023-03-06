@@ -2,7 +2,7 @@
   "name": "playwright_test",
   "version": "1.0.0",
   "description": "",
-  "main": "./e2e/gmail/api.js",
+  "main": "main.js",
   "scripts": {},
   "keywords": [],
   "author": "",

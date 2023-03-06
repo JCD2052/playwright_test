@@ -1,19 +1,18 @@
+import {Button} from "./framework/elements/button.js";
+
 const {BasePage} = require("./base-page");
-const BACK_TO_MAIN_PAGE_LOCATOR = "//a[contains(@class, 'enw-btn')]";
 
 class ConfirmEmailPage extends BasePage {
-    constructor(page) {
-        super(page, BACK_TO_MAIN_PAGE_LOCATOR);
-        this.backToSiteButton = page.locator(BACK_TO_MAIN_PAGE_LOCATOR);
-    }
+    static #BACK_TO_MAIN_PAGE_LOCATOR = "//a[contains(@class, 'enw-btn')]";
+    #backToSiteButton = new Button(ConfirmEmailPage.#BACK_TO_MAIN_PAGE_LOCATOR);
 
-    async goToPage(link) {
-        await this.page.goto(link);
+    constructor() {
+        super(ConfirmEmailPage.#BACK_TO_MAIN_PAGE_LOCATOR);
     }
 
     async backToMainPage() {
-        await this.backToSiteButton.click();
+        await this.#backToSiteButton.click();
     }
 }
 
-export {ConfirmEmailPage}
+export {ConfirmEmailPage};

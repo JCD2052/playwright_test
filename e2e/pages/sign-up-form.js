@@ -1,13 +1,22 @@
+import {TextBox} from "./framework/elements/text-box.js";
+import {Button} from "./framework/elements/button.js";
+
 class SignUpForm {
-    constructor(page) {
-        this.emailTextInput = page.locator(`//input[@type='email']`);
-        this.submitButton = page.locator(`//input[@data-event='NL_submit']`);
+    #emailTextInput = new TextBox(`//input[@type='email']`);
+    #submitButton = new Button(`//input[@data-event='NL_submit']`);
+
+    constructor() {
+
     }
 
     async subscribeToTopic(email) {
-        await this.emailTextInput.fill(email);
-        await this.submitButton.click();
+        await this.#emailTextInput.typeText(email);
+        await this.#submitButton.click();
+    }
+
+    async isFormOpened() {
+        return this.#emailTextInput.isVisible();
     }
 }
 
-export {SignUpForm}
+export {SignUpForm};

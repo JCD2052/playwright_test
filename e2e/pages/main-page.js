@@ -1,32 +1,27 @@
+import {Link} from "./framework/elements/link.js";
+import {Button} from "./framework/elements/button.js";
+
 const {BasePage} = require("./base-page");
-const URL = 'https://www.euronews.com';
-const NEWSLETTER_LOCATOR = '[data-event="newsletter-link-header"]';
 
 class EuronewsMainPage extends BasePage {
+    static #NEWSLETTER_LOCATOR = '[data-event="newsletter-link-header"]';
+    #newsletterLink = new Link(EuronewsMainPage.#NEWSLETTER_LOCATOR);
+    #agreeCookiesButton = new Button(`//button[contains(@id, 'agree')]`);
 
-    /**
-     * @param {import('@playwright/test').Page} page
-     */
-    constructor(page) {
-        super(page, NEWSLETTER_LOCATOR);
-        this.newsletterLink = page.locator(NEWSLETTER_LOCATOR);
-        this.aggreeCookiesButton = page.locator(`//button[contains(@id, 'agree')]`);
-    }
 
-    async goToPage() {
-        await this.page.goto(URL);
+    constructor() {
+        super(EuronewsMainPage.#NEWSLETTER_LOCATOR);
     }
 
     async goToNewsletters() {
-        await this.newsletterLink.click();
+        await this.#newsletterLink.click();
     }
 
-
     async clickAgreeCookies() {
-        if (await this.aggreeCookiesButton.isVisible()) {
-            await this.aggreeCookiesButton.click()
+        if (await this.#agreeCookiesButton.isVisible()) {
+            await this.#agreeCookiesButton.click()
         }
     }
 }
 
-export {EuronewsMainPage}
+export {EuronewsMainPage};
