@@ -1,6 +1,6 @@
-import {Label} from "./framework/elements/label.js";
-import {Button} from "./framework/elements/button.js";
-import {TextBox} from "./framework/elements/text-box.js";
+import {Label} from "../../framework/elements/label.js";
+import {Button} from "../../framework/elements/button.js";
+import {TextBox} from "../../framework/elements/text-box.js";
 
 const {BasePage} = require("./base-page");
 

@@ -1,4 +1,4 @@
-import {Button} from "./framework/elements/button.js";
+import {Button} from "../../framework/elements/button.js";
 
 const {BasePage} = require("./base-page");
 

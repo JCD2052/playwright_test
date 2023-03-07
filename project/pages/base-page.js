@@ -1,4 +1,4 @@
-import {PageHolder} from "./framework/browser/page-holder";
+import {PageHolder} from "../../framework/browser/page-holder";
 
 class BasePage {
     #locator

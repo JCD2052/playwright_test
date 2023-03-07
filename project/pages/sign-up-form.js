@@ -1,5 +1,5 @@
-import {TextBox} from "./framework/elements/text-box.js";
-import {Button} from "./framework/elements/button.js";
+import {TextBox} from "../../framework/elements/text-box.js";
+import {Button} from "../../framework/elements/button.js";
 
 class SignUpForm {
     #emailTextInput = new TextBox(`//input[@type='email']`);

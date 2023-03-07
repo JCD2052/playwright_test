@@ -1,6 +1,6 @@
 import {JSDOM} from "jsdom";
 import {GoogleApiConfig} from "../../gmail/api/google-api-config";
-import ApiConfig from "../../gmail/config/apiConfig.json";
+import ApiConfig from "../../../project/config/config.json";
 import {GoogleApiAuthClient} from "../../gmail/api/google-api-client";
 import {GmailMessagesApiClient} from "../../gmail/api/gmail-api-client";
 import {getMessageInfoFromMessage} from "../../gmail/api/utils/message-utils";

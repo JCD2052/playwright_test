@@ -1,4 +1,4 @@
-import {getElementSelector} from "./utils.js";
+import {getElementSelector} from "../utils/element-utils.js";
 import {PageHolder} from "../browser/page-holder";
 
 class Frame {

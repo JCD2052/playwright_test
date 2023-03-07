@@ -1,6 +1,6 @@
-import {Frame} from "./framework/elements/frame.js";
-import {Link} from "./framework/elements/link.js";
-import {Navigation} from "./framework/browser/navigation";
+import {Frame} from "../../framework/elements/frame.js";
+import {Link} from "../../framework/elements/link.js";
+import {Navigation} from "../../framework/browser/navigation";
 
 class PreviewWindow {
     #frame

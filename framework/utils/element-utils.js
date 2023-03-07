@@ -1,4 +1,4 @@
-import {substringAfterChar} from "../../../utils/string-utils.js";
+import {substringAfterChar} from "./string-utils.js";
 
 const LOCATOR_BEFORE_CHARACTERS = "Locator@";
 

@@ -1,5 +1,5 @@
-import {Button} from "./framework/elements/button.js";
-import {Link} from "./framework/elements/link.js";
+import {Button} from "../../framework/elements/button.js";
+import {Link} from "../../framework/elements/link.js";
 import SignUpForm from "./sign-up-form";
 
 const {BasePage} = require("./base-page");
