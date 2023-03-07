@@ -15,4 +15,4 @@ class ConfirmEmailPage extends BasePage {
     }
 }
 
-export {ConfirmEmailPage};
+export default new ConfirmEmailPage();

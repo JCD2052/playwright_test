@@ -24,4 +24,4 @@ class EuronewsMainPage extends BasePage {
     }
 }
 
-export {EuronewsMainPage};
+export default new EuronewsMainPage();

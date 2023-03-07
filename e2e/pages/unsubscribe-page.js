@@ -24,4 +24,4 @@ class UnsubscribePage extends BasePage {
     }
 }
 
-export {UnsubscribePage};
+export default new UnsubscribePage();

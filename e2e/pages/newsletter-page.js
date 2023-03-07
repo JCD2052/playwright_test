@@ -1,6 +1,6 @@
 import {Button} from "./framework/elements/button.js";
 import {Link} from "./framework/elements/link.js";
-import {SignUpForm} from "./sign-up-form";
+import SignUpForm from "./sign-up-form";
 
 const {BasePage} = require("./base-page");
 
@@ -11,7 +11,7 @@ class NewsLetterPage extends BasePage {
     static #TOPIC_LOCATOR = topicId => `(//label[@for=${topicId}])[1]`;
     static #TOPIC_LINK_LOCATOR = "//a";
     #newsTopics = new Link(`//div[@class = 'p-8']`);
-    signUpForm = new SignUpForm();
+    signUpForm = SignUpForm;
 
     constructor() {
         super(NewsLetterPage.#NEWSLETTERS_FORM_LOCATOR);
@@ -36,4 +36,4 @@ class NewsLetterPage extends BasePage {
     }
 }
 
-export {NewsLetterPage};
+export default new NewsLetterPage();

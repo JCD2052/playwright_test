@@ -19,4 +19,4 @@ class SignUpForm {
     }
 }
 
-export {SignUpForm};
+export default new SignUpForm();
