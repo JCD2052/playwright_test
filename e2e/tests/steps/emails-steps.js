@@ -1,9 +1,9 @@
 import {JSDOM} from "jsdom";
-import {GoogleApiConfig} from "../../gmail/api/google-api-config";
+import {GoogleApiConfig} from "../../../project/gmail/api/google-api-config";
 import ApiConfig from "../../../project/config/config.json";
-import {GoogleApiAuthClient} from "../../gmail/api/google-api-client";
-import {GmailMessagesApiClient} from "../../gmail/api/gmail-api-client";
-import {getMessageInfoFromMessage} from "../../gmail/api/utils/message-utils";
+import {GoogleApiAuthClient} from "../../../project/gmail/api/google-api-client";
+import {GmailMessagesApiClient} from "../../../project/gmail/api/gmail-api-client";
+import {getMessageInfoFromMessage} from "../../../project/gmail/api/utils/message-utils";
 
 const FROM_TO_SEARCH = 'euronews';
 

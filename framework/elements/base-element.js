@@ -1,11 +1,14 @@
 import {getElementSelector} from "../utils/element-utils.js";
 import {PageHolder} from "../browser/page-holder";
 
+/**
+ *Basic class for element objects which contains basic logic for every element.
+ */
 class BaseElement {
     #elementLocator;
 
     /**
-     *
+     *Locator for element.
      * @param elementLocator {string}
      */
     constructor(elementLocator) {
@@ -14,7 +17,7 @@ class BaseElement {
 
 
     /**
-     *
+     *Protected method to find element.
      * @returns {import('@playwright/test').Locator}
      */
     _findElement() {
@@ -22,11 +25,10 @@ class BaseElement {
     }
 
     /**
-     *
-     * @param locator {string}
+     *Method to find next nested elements.
+     * @param locator {string} locator string.
      * @returns {BaseElement}
      */
-
     findNext(locator) {
         const baseLocator = getElementSelector(this._findElement());
         return new this.constructor(getElementSelector(
@@ -34,10 +36,9 @@ class BaseElement {
     }
 
     /**
-     *
-     * @returns {Promise<BaseElement[]>}
+     *Method to find elements and return an array.
+     * @returns {Promise<BaseElement[]>} Array of elements.
      */
-
     async findElements() {
         return (await this._findElement().all()).map((element) => {
             return new this.constructor(getElementSelector(element));
@@ -45,7 +46,7 @@ class BaseElement {
     }
 
     /**
-     *
+     *Method to click on element.
      * @returns {Promise<void>}
      */
     async click() {
@@ -53,32 +54,24 @@ class BaseElement {
     }
 
     /**
-     *
-     * @param attributeName {string}
-     * @returns {Promise<string | null>}
+     *Method to get attribute from element.
+     * @param attributeName {string} Attribute name.
+     * @returns {Promise<string | null>} Return string or null if attribute has been not found.
      */
     async getAttribute(attributeName) {
         return (await this._findElement()).getAttribute(attributeName);
     }
 
     /**
-     *
-     * @returns {Promise<string|null>}
+     *Method to get id attribute from element.
+     * @returns {Promise<string|null>} Return string or null if attribute has been not found.
      */
     async getElementId() {
         return this.getAttribute("id");
     }
 
     /**
-     *
-     * @returns {Promise<string | null>}
-     */
-    async getText() {
-        return (await this._findElement()).textContent();
-    }
-
-    /**
-     *
+     *Method to check if element is visible.
      * @returns {Promise<boolean>}
      */
     async isVisible() {
@@ -86,15 +79,20 @@ class BaseElement {
     }
 
     /**
-     *
+     *Method to scroll to element.
      * @returns {Promise<void>}
      */
     async scrollToElement() {
         await (await this._findElement()).scrollIntoViewIfNeeded();
     }
 
-    async waitToBeVisible() {
-        await this._findElement().waitFor({state: "visible"})
+    /**
+     * Method to wait until element is visible.
+     * @param timeout {number} Time to wait. Default is 10 second.
+     * @returns {Promise<void>}
+     */
+    async waitToBeVisible(timeout = 10) {
+        await this._findElement().waitFor({state: "visible", timeout});
     }
 }
 

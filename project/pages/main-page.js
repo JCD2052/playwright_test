@@ -13,10 +13,18 @@ class EuronewsMainPage extends BasePage {
         super(EuronewsMainPage.#NEWSLETTER_LOCATOR);
     }
 
+    /**
+     * Method to click on newsletter button.
+     * @returns {Promise<void>}
+     */
     async goToNewsletters() {
         await this.#newsletterLink.click();
     }
 
+    /**
+     * Method which wait until cookie banner and click to agree.
+     * @returns {Promise<void>}
+     */
     async clickAgreeCookies() {
         if (await this.#agreeCookiesButton.isVisible()) {
             await this.#agreeCookiesButton.click()

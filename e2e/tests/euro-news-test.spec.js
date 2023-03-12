@@ -1,14 +1,14 @@
 import {test, expect} from '@playwright/test';
-import {ConfirmEmailPage} from '../pages/confirfm-email-page';
-import {EuronewsMainPage} from '../pages/main-page';
-import {NewsLetterPage} from '../pages/newsletter-page';
-import {PreviewWindow} from "../pages/preview-window";
-import {UnsubscribePage} from '../pages/unsubscribe-page';
-import {waitUntil} from "../gmail/api/utils/wait-utils";
-import ApiConfig from "../gmail/config/apiConfig.json";
+import ConfirmEmailPage from '../../project/pages/confirfm-email-page';
+import EuronewsMainPage from '../../project/pages/main-page';
+import NewsLetterPage from '../../project/pages/newsletter-page';
+import {PreviewWindow} from "../../project/pages/preview-window";
+import UnsubscribePage from '../../project/pages/unsubscribe-page';
+import ApiConfig from "../../project/config/config.json";
 import {getConfirmationLinkFromMessage, getEuronewsEmails} from "./steps/emails-steps";
-import {Navigation} from "../pages/framework/browser/navigation";
-import {PageHolder} from "../pages/framework/browser/page-holder";
+import {Navigation} from "../../framework/browser/navigation";
+import {PageHolder} from "../../framework/browser/page-holder";
+import {waitUntil} from "../../project/gmail/api/utils/wait-utils";
 
 const EMAIL = ApiConfig.email;
 
@@ -23,25 +23,22 @@ test.describe('Euronews UI tests.', () => {
 
     test('Euronews Subscribe random topic test.', async () => {
         await Navigation.goToPage("/")
-        const euronewsPage = new EuronewsMainPage();
 
-        await euronewsPage.clickAgreeCookies();
-        await expect(euronewsPage.isPageOpened(),
+        await EuronewsMainPage.clickAgreeCookies();
+        await expect(EuronewsMainPage.isPageOpened(),
             'Should be on main page').toBeTruthy();
 
-        await euronewsPage.goToNewsletters();
+        await EuronewsMainPage.goToNewsletters();
 
-        const newsLetterPage = new NewsLetterPage();
-        await newsLetterPage.waitForLoading();
-        expect(await newsLetterPage.isPageOpened(),
+        await NewsLetterPage.waitForLoading();
+        expect(await NewsLetterPage.isPageOpened(),
             'Should be on newsletter page').toBeTruthy();
 
-        const topicElement = await newsLetterPage.findRandomTopic();
-        console.log(topicElement)
-        await newsLetterPage.selectTopic(topicElement);
-        // await expect(newsLetterPage.signUpForm.emailTextInput,
-        //     'Sign up form has appeared').toBeVisible();
-        await newsLetterPage.signUpForm.subscribeToTopic(EMAIL);
+        const topicElement = await NewsLetterPage.findRandomTopic();
+        await NewsLetterPage.selectTopic(topicElement);
+        await expect(NewsLetterPage.signUpForm.isFormOpened(),
+            'Sign up form has appeared').toBeTruthy();
+        await NewsLetterPage.signUpForm.subscribeToTopic(EMAIL);
 
         const currentTime = Date.now();
 
@@ -57,32 +54,30 @@ test.describe('Euronews UI tests.', () => {
         expect(messageWithConfirmation, 'Received a message').toBeDefined();
         const confirmUrl = getConfirmationLinkFromMessage(messageWithConfirmation);
 
-        const confirmEmailPage = new ConfirmEmailPage();
-        await confirmEmailPage.goToPage(confirmUrl);
-        await confirmEmailPage.waitForLoading();
+        await Navigation.goToPage(confirmUrl);
+        await ConfirmEmailPage.waitForLoading();
 
-        expect(await confirmEmailPage.isPageOpened(),
+        expect(await ConfirmEmailPage.isPageOpened(),
             'Should be on confirmation page').toBeTruthy();
 
-        await confirmEmailPage.backToMainPage();
+        await ConfirmEmailPage.backToMainPage();
 
-        expect(await euronewsPage.isPageOpened(),
+        expect(await EuronewsMainPage.isPageOpened(),
             'Should be on main page').toBeTruthy();
 
-        await euronewsPage.goToNewsletters();
-        await newsLetterPage.waitForLoading();
+        await EuronewsMainPage.goToNewsletters();
+        await NewsLetterPage.waitForLoading();
 
-        const previewElement = await newsLetterPage.getPreviewElement(topicElement);
+        const previewElement = await NewsLetterPage.getPreviewElement(topicElement);
         await previewElement.click();
         const previewId = await previewElement.getHref();
 
-        const previewPage = new PreviewWindow( previewId);
+        const previewPage = new PreviewWindow(previewId);
         await previewPage.goToUnsubscribe();
 
-        const unsubscribePage = new UnsubscribePage();
-        await unsubscribePage.unsubscribe(EMAIL);
+        await UnsubscribePage.unsubscribe(EMAIL);
 
-        expect(await unsubscribePage.isMessageShown(),
+        expect(await UnsubscribePage.isMessageShown(),
             'Message about unsubscription should be visible').toBeTruthy();
 
         const messagesCountAfterUnsubscribe = (await getEuronewsEmails()).length;

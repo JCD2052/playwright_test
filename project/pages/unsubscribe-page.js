@@ -14,11 +14,20 @@ class UnsubscribePage extends BasePage {
         super(UnsubscribePage.#EMAIL_LOCATOR);
     }
 
+    /**
+     * Method to type an email and click submit button.
+     * @param email {string} email string.
+     * @returns {Promise<void>}
+     */
     async unsubscribe(email) {
         await this.#emailInput.typeText(email);
         await this.#confirmButton.click();
     }
 
+    /**
+     * Method to check if alert is opened.
+     * @returns {Promise<boolean>}
+     */
     async isMessageShown() {
         return await this.#message.isVisible();
     }

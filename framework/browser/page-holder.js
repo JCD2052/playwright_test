@@ -1,3 +1,6 @@
+/**
+ * Static utility for storage page object for global using.
+ */
 class PageHolder {
     static #page;
 

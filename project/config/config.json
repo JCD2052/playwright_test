@@ -2,6 +2,6 @@
   "scopes":" PLACE YOUR SCOPES HERE",
   "credentialsPath": "PLACE CREDENTIALS JSON FILE PATH HERE",
   "tokenPath": "PLACE TOKEN JSON FILE PATH HERE",
-  "email": "PLACE YOUR EMAIL HERE",
+  "email": "hikovom917@orgria.com",
   "gapiTimeout": 50
 }

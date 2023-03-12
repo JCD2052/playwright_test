@@ -1,18 +1,21 @@
 import {PageHolder} from "../../framework/browser/page-holder";
 
+/**
+ * Class for Base Page.
+ */
 class BasePage {
     #locator
 
     /**
-     *
-     * @param locator{string}
+     *Constructor with a unique page locator.
+     * @param locator{string} string locator.
      */
     constructor(locator) {
         this.#locator = locator;
     }
 
     /**
-     *
+     *Method for waiting until page is loading.
      * @returns {Promise<void>}
      */
 
@@ -21,7 +24,7 @@ class BasePage {
     }
 
     /**
-     *
+     *Method which check if page is opened.
      * @returns {Promise<boolean>}
      */
 

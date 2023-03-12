@@ -17,11 +17,20 @@ class NewsLetterPage extends BasePage {
         super(NewsLetterPage.#NEWSLETTERS_FORM_LOCATOR);
     }
 
+    /**
+     * Method which return random topic from page.
+     * @returns {Promise<BaseElement>}
+     */
     async findRandomTopic() {
         const topics = await this.#newsTopics.findElements();
         return topics[Math.floor(Math.random() * topics.length)];
     }
 
+    /**
+     *Method to get id from link object and click on it.
+     * @param topicElement {Link} Link object with topic.
+     * @returns {Promise<void>}
+     */
     async selectTopic(topicElement) {
         const selectButton = topicElement.findNext(NewsLetterPage.#SELECT_BUTTON_LOCATOR);
         await selectButton.scrollToElement();
@@ -30,6 +39,11 @@ class NewsLetterPage extends BasePage {
         await element.click();
     }
 
+    /**
+     *Method to scroll to element and getting a link attribute.
+     * @param topicElement {Link} Link object with topic.
+     * @returns {Promise<Link>}
+     */
     async getPreviewElement(topicElement) {
         await topicElement.scrollToElement();
         return topicElement.findNext(NewsLetterPage.#TOPIC_LINK_LOCATOR);

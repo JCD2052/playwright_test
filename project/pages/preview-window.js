@@ -6,10 +6,18 @@ class PreviewWindow {
     #frame
     static #LINK_LOCATOR = `//a[contains(@href, 'unsubscribe')]`;
 
+    /**
+     *
+     * @param previewId {string} Topic id.
+     */
     constructor(previewId) {
         this.#frame = new Frame(`${previewId} iframe`);
     }
 
+    /**
+     * Method to get href from link element and go this link.
+     * @returns {Promise<void>}
+     */
     async goToUnsubscribe() {
         const link = await this.#frame.getElementFromFrame(PreviewWindow.#LINK_LOCATOR, Link);
         await link.waitToBeVisible();
